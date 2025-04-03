@@ -1,12 +1,18 @@
 name: My Starter Workflow
 
 on:
-  call-reusable-workflow:
-    uses: ./.github/workflows/reusable-workflow.yml
-    with:
-      node: 14
-  
-  jobs:
+  workflow_call:
+    inputs:
+      node:
+        required: true
+        type: string
+        
+jobs:
+    call-reusable-workflow:
+      uses: ./.github/workflows/reusable-workflow.yml
+      with:
+        node: 14
+    
     build:
       runs-on: ubuntu-latest
   
