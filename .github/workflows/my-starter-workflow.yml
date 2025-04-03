@@ -1,16 +1,29 @@
 name: My Starter Workflow
 
 on:
-  workflow_dispatch:
-
+  workflow_call:
+    inputs:
+      node:
+        required: true
+        type: string
+        
 jobs:
+  example_matrix:
+
+  call-reusable-workflow:
+    strategy:
+      matrix:
+        version: [10, 12, 14]
+        os: [ubuntu-latest, windows-latest]
+
   build:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-
+  
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
           echo test, and deploy to your project.
+
