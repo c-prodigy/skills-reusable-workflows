@@ -8,19 +8,22 @@ on:
         type: string
         
 jobs:
-    call-reusable-workflow:
-      uses: ./.github/workflows/reusable-workflow.yml
-      with:
-        node: 14
-    
-    build:
-      runs-on: ubuntu-latest
+  example_matrix:
+
+  call-reusable-workflow:
+    strategy:
+      matrix:
+        version: [10, 12, 14]
+        os: [ubuntu-latest, windows-latest]
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
   
-      steps:
-        - uses: actions/checkout@v4
-    
-        - name: Run a multi-line script
-          run: |
-            echo Add other actions to build,
-            echo test, and deploy to your project.
-  
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy to your project.
+
